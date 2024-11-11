@@ -1,4 +1,14 @@
+uniform vec3 uDeepColor;
+uniform vec3 uSurfaceColor;
+uniform float uColorOffset;
+uniform float uColorMultiplied;
+
+
+varying float vElevation;
+
 void main(){
-    gl_FragColor = vec4(0.5,  0.8, 1.0, 1.0);
+    float mixStrength = (vElevation + uColorOffset) * uColorMultiplied;
+    vec3 color = mix(uDeepColor, uSurfaceColor, mixStrength);
+    gl_FragColor = vec4(color, 1.0);
     #include <colorspace_fragment>
 }
